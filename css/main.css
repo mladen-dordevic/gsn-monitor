@@ -1,0 +1,30 @@
+.map-wrap {
+	position : fixed;
+	top : 51px;
+	bottom: 0px;
+	left : 0px;
+	right : 0px;
+}
+
+#content-menu {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 10;
+  background-color: rgb(34, 34, 34);
+  padding: 10px;
+  max-width: 350px;
+  opacity: 0.89;
+}
+
+#waithing-data {
+	position: fixed;
+	bottom: 5px;
+	right: 0px;
+	z-index: 12;
+	display: none;
+}
+
+#marker-details{
+  margin-top: 50px;
+}
