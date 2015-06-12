@@ -22,7 +22,7 @@ var Utils = (function(window) {
     $(window.document).ready(function() {
         //asinine control to the toggle button in header
         $('#navbar-toggle-menu').on('click', function() {
-            $('#content-menu').toggle("slide");
+            $('#content-menu').slideToggle();
         });
     });
 }(window.$, window));
@@ -35,7 +35,7 @@ var GSN = (function($, g, Utils, window, visible) {
         header = [],
         infowindow = null,
         visible = visible || {},
-        colorScale = ['#00E5D3', '#13CEBF', '#26B7AB', '#39A098', '#4C8984', '#5F7271', '#725B5D', '#854449', '#982D36', '#AB1622', '#BF000F'];
+        colorScale = ['#00E540', '#19CE39', '#33B733', '#4CA02C', '#668926', '#7F7220', '#995B19', '#B24413', '#CC2D0C', '#E51606', '#FF0000'];
 
 
     /**
@@ -136,8 +136,6 @@ var GSN = (function($, g, Utils, window, visible) {
         this.marker.setIcon(url);
         return this;
     };
-
-
     /**
      * Adds event listener to marker
      */
@@ -157,7 +155,6 @@ var GSN = (function($, g, Utils, window, visible) {
         }
         return this;
     };
-
     /**
      * Adds metrics to the station
      */
@@ -165,13 +162,11 @@ var GSN = (function($, g, Utils, window, visible) {
         this.metrics[Station.activChanelId] = obj;
         return this;
     }
-
-
     /**
      * Exports station info as Jquery wraped html bootstrap card so it can be used in info window or else wear
      */
     Station.prototype.toHtml = function() {
-        return $('<ul class="list-group">').append(
+        var html = $('<ul class="list-group">').append(
             $('<li class="list-group-item active">').html(this.siteName),
             $('<li class="list-group-item">').html('Network: ' + this.network),
             $('<li class="list-group-item">').html('Station: ' + this.station),
@@ -180,11 +175,15 @@ var GSN = (function($, g, Utils, window, visible) {
             $('<li class="list-group-item">').html('Elevation: ' + this.elevation),
             $('<li class="list-group-item">').html('Start Time: ' + this.startTime),
             $('<li class="list-group-item">').html('End Time: ' + this.endTime),
-            $('<li class="list-group-item">').html('<a href="http://ds.iris.edu/mda/II/' + this.station + '" target=_blank>More info</a>')
-        )
+            $('<li class="list-group-item">').html('<a href="http://ds.iris.edu/mda/II/' + this.station + '" target=_blank>DMC MetaData Aggregator</a>')
+          ),
+        m;
+        for(m in this.metrics){
+          var cName = Station.chanellIdtoName[m];
+          html.append($('<li class="list-group-item">').html(cName + ': ' + (+this.metrics[m].percentage).toFixed(2) + '%'))
+        }
+        return html;
     };
-
-
     /**
      * Makes AJAX call to get stations info
      * @method getStationsLocations
@@ -410,11 +409,6 @@ var GSN = (function($, g, Utils, window, visible) {
               }
             ]
         };
-
-
-
-
-
         return new g.Map($(mapDiv)[0], mapOptions);
     }
 
@@ -422,6 +416,7 @@ var GSN = (function($, g, Utils, window, visible) {
         map = setMap('#map3d');
         infowindow = new g.InfoWindow();
         getStationsLocations();
+
     });
     return visible;
 }(window.$, window.google.maps, Utils, window, GSN));
