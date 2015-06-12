@@ -1,24 +1,12 @@
-# iris_dev_exercise
+# GSN Monitor too
 
 ## Overview
 
-This is a simple exercise designed to assess a developers coding and decision
-skills. By it's nature the exercise is vague and open-ended - we are interested
-to see how you approach and solve the challenge, and what assumptions you
-make. You will be asked about your coding decisions during the interview.
+Simple monitor tools that gives geo-spacial overview of various station metrics.
+User can select from drop-down button which metric does he want to observe. App will make and AJAX get
+request to DQA database to retrieve information and station markers will assume appropriate color.
 
-## Tasks
-
-1. Clone/fork this repository
-2. Build a simple web application as outlined below
-3. Commit to Github
-4. In a new file SPECS.md explain your design decisions, assumptions, etc.
-
-## Web Application Specification
-
-IRIS commonly works with earthquake data. We would like you to
-use the data provided by the [IRIS Event Web Service](http://service.iris.edu/fdsnws/event/1/)
-to create a web-based application that displays earthquake locations on a map.
-
-Specifically, when the user clicks any location on the map, we want
-earthquake locations within 1000 km of that location to be plotted.
+##TODO
+*Date range for metrics needs to be updated automatically, right now it is a fixed start-end range due to not receiving any information from database for current day interval.
+*Set getMetrics function in setInterval once above problem is solved.
+*Other things to do?
