@@ -143,14 +143,12 @@ var GSN = (function($, g, Utils, window, visible) {
         var self = this;
         if (this.marker) {
             g.event.addListener(self.marker, 'click', function() {
-                var html = self.toHtml()[0];
-                infowindow.set({
-                    content: html,
-                    map: map
-                });
-
-                $('#marker-details').html(html);
-                console.log(self);
+                if($('#content-menu').is(':visible')){
+                  $('#marker-details').html(self.toHtml()[0]);
+                } else{
+                  infowindow.setContent( self.toHtml()[0]);
+                  infowindow.open(map, self.marker);
+                }
             })
         }
         return this;
